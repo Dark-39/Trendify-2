@@ -15,22 +15,22 @@ const Index = () => {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1 className="hero-title">Discover Amazing Products</h1>
+            <h1 className="hero-title">Elevate Your Style</h1>
             <p className="hero-description">
-              Shop the latest trends and find everything you need in our
-              carefully curated collection
+              Discover timeless fashion pieces that express your unique
+              personality. From casual chic to elegant sophistication.
             </p>
             <div className="hero-actions">
               <Link to="/products" className="btn btn-primary btn-lg">
-                Shop Now
+                Shop Collection
               </Link>
-              <button className="btn btn-secondary btn-lg">Learn More</button>
+              <button className="btn btn-secondary btn-lg">Style Guide</button>
             </div>
           </div>
           <div className="hero-image">
             <img
               src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop"
-              alt="Shopping experience"
+              alt="Fashion collection showcase"
             />
           </div>
         </div>
@@ -40,8 +40,8 @@ const Index = () => {
       <section className="featured-section">
         <div className="container">
           <div className="section-header">
-            <h2>Featured Products</h2>
-            <p>Handpicked items that our customers love most</p>
+            <h2>Featured Styles</h2>
+            <p>Curated pieces our stylists love this season</p>
           </div>
 
           <div className="products-grid grid grid-cols-4">
@@ -59,7 +59,7 @@ const Index = () => {
 
           <div className="section-footer">
             <Link to="/products" className="btn btn-secondary">
-              View All Products
+              Shop All Styles
             </Link>
           </div>
         </div>
@@ -70,25 +70,25 @@ const Index = () => {
         <div className="container">
           <div className="section-header">
             <h2>Shop by Category</h2>
-            <p>Find exactly what you're looking for</p>
+            <p>Find your perfect style match</p>
           </div>
 
           <div className="categories-grid grid grid-cols-3">
             <div className="category-card card">
               <div className="category-image">
                 <img
-                  src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=400&h=300&fit=crop"
-                  alt="Electronics"
+                  src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=300&fit=crop"
+                  alt="Dresses Collection"
                 />
               </div>
               <div className="category-content">
-                <h3>Electronics</h3>
-                <p>Latest gadgets and tech</p>
+                <h3>Dresses</h3>
+                <p>From casual to cocktail</p>
                 <Link
-                  to="/products?category=Electronics"
+                  to="/products?category=Dresses"
                   className="btn btn-primary"
                 >
-                  Explore
+                  Shop Dresses
                 </Link>
               </div>
             </div>
@@ -96,18 +96,15 @@ const Index = () => {
             <div className="category-card card">
               <div className="category-image">
                 <img
-                  src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&h=300&fit=crop"
-                  alt="Fashion"
+                  src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop"
+                  alt="Tops Collection"
                 />
               </div>
               <div className="category-content">
-                <h3>Fashion</h3>
-                <p>Trendy clothing and accessories</p>
-                <Link
-                  to="/products?category=Clothing"
-                  className="btn btn-primary"
-                >
-                  Explore
+                <h3>Tops & Blouses</h3>
+                <p>Versatile pieces for every occasion</p>
+                <Link to="/products?category=Tops" className="btn btn-primary">
+                  Shop Tops
                 </Link>
               </div>
             </div>
@@ -115,18 +112,62 @@ const Index = () => {
             <div className="category-card card">
               <div className="category-image">
                 <img
-                  src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop"
-                  alt="Home & Living"
+                  src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop"
+                  alt="Shoes Collection"
                 />
               </div>
               <div className="category-content">
-                <h3>Home & Living</h3>
-                <p>Furniture and home decor</p>
-                <Link
-                  to="/products?category=Furniture"
-                  className="btn btn-primary"
-                >
-                  Explore
+                <h3>Shoes</h3>
+                <p>Step into style and comfort</p>
+                <Link to="/products?category=Shoes" className="btn btn-primary">
+                  Shop Shoes
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Style Inspiration Section */}
+      <section className="inspiration-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>Style Inspiration</h2>
+            <p>Get inspired by our latest fashion trends and styling tips</p>
+          </div>
+
+          <div className="inspiration-grid grid grid-cols-2">
+            <div className="inspiration-card">
+              <div className="inspiration-image">
+                <img
+                  src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&h=600&fit=crop"
+                  alt="Workwear styling"
+                />
+              </div>
+              <div className="inspiration-content">
+                <h3>Office Chic</h3>
+                <p>
+                  Professional looks that transition from boardroom to happy
+                  hour
+                </p>
+                <Link to="/products?category=Outerwear" className="style-link">
+                  Shop the Look →
+                </Link>
+              </div>
+            </div>
+
+            <div className="inspiration-card">
+              <div className="inspiration-image">
+                <img
+                  src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&h=600&fit=crop"
+                  alt="Weekend casual styling"
+                />
+              </div>
+              <div className="inspiration-content">
+                <h3>Weekend Vibes</h3>
+                <p>Effortless casual pieces for your off-duty moments</p>
+                <Link to="/products?category=Bottoms" className="style-link">
+                  Shop the Look →
                 </Link>
               </div>
             </div>
@@ -138,9 +179,10 @@ const Index = () => {
       <section className="newsletter-section">
         <div className="container">
           <div className="newsletter-content">
-            <h2>Stay Updated</h2>
+            <h2>Stay Stylish</h2>
             <p>
-              Subscribe to our newsletter and get exclusive deals and updates
+              Subscribe to receive exclusive style tips, new arrivals, and
+              special offers
             </p>
             <form className="newsletter-form">
               <input
@@ -153,6 +195,9 @@ const Index = () => {
                 Subscribe
               </button>
             </form>
+            <p className="newsletter-note">
+              Join 50,000+ fashion lovers getting weekly style inspiration
+            </p>
           </div>
         </div>
       </section>
@@ -162,70 +207,99 @@ const Index = () => {
         <div className="container">
           <div className="footer-content">
             <div className="footer-section">
-              <h3>ShopHub</h3>
+              <h3>StyleVogue</h3>
               <p>
-                Your one-stop destination for amazing products and exceptional
-                shopping experience.
+                Your destination for timeless fashion and contemporary style.
+                Empowering confidence through beautiful clothing.
               </p>
-            </div>
-
-            <div className="footer-section">
-              <h4>Quick Links</h4>
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/products">Products</Link>
-                </li>
-                <li>
-                  <a href="#about">About Us</a>
-                </li>
-                <li>
-                  <a href="#contact">Contact</a>
-                </li>
-              </ul>
-            </div>
-
-            <div className="footer-section">
-              <h4>Customer Service</h4>
-              <ul>
-                <li>
-                  <a href="#support">Support Center</a>
-                </li>
-                <li>
-                  <a href="#shipping">Shipping Info</a>
-                </li>
-                <li>
-                  <a href="#returns">Returns</a>
-                </li>
-                <li>
-                  <a href="#faq">FAQ</a>
-                </li>
-              </ul>
-            </div>
-
-            <div className="footer-section">
-              <h4>Follow Us</h4>
               <div className="social-links">
-                <a href="#" aria-label="Facebook">
-                  📘
-                </a>
-                <a href="#" aria-label="Twitter">
-                  🐦
-                </a>
                 <a href="#" aria-label="Instagram">
                   📷
                 </a>
-                <a href="#" aria-label="LinkedIn">
-                  💼
+                <a href="#" aria-label="Facebook">
+                  📘
+                </a>
+                <a href="#" aria-label="Pinterest">
+                  📌
+                </a>
+                <a href="#" aria-label="TikTok">
+                  🎵
                 </a>
               </div>
+            </div>
+
+            <div className="footer-section">
+              <h4>Shop</h4>
+              <ul>
+                <li>
+                  <Link to="/products?category=Dresses">Dresses</Link>
+                </li>
+                <li>
+                  <Link to="/products?category=Tops">Tops & Blouses</Link>
+                </li>
+                <li>
+                  <Link to="/products?category=Bottoms">Bottoms</Link>
+                </li>
+                <li>
+                  <Link to="/products?category=Outerwear">Outerwear</Link>
+                </li>
+                <li>
+                  <Link to="/products?category=Shoes">Shoes</Link>
+                </li>
+                <li>
+                  <Link to="/products?category=Accessories">Accessories</Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="footer-section">
+              <h4>Customer Care</h4>
+              <ul>
+                <li>
+                  <a href="#size-guide">Size Guide</a>
+                </li>
+                <li>
+                  <a href="#shipping">Shipping & Returns</a>
+                </li>
+                <li>
+                  <a href="#styling">Personal Styling</a>
+                </li>
+                <li>
+                  <a href="#care">Care Instructions</a>
+                </li>
+                <li>
+                  <a href="#contact">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="footer-section">
+              <h4>About</h4>
+              <ul>
+                <li>
+                  <a href="#story">Our Story</a>
+                </li>
+                <li>
+                  <a href="#sustainability">Sustainability</a>
+                </li>
+                <li>
+                  <a href="#careers">Careers</a>
+                </li>
+                <li>
+                  <a href="#press">Press</a>
+                </li>
+                <li>
+                  <a href="#blog">Style Blog</a>
+                </li>
+              </ul>
             </div>
           </div>
 
           <div className="footer-bottom">
-            <p>&copy; 2024 ShopHub. All rights reserved.</p>
+            <p>
+              &copy; 2024 StyleVogue. All rights reserved. | Privacy Policy |
+              Terms of Service
+            </p>
           </div>
         </div>
       </footer>

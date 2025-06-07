@@ -72,8 +72,8 @@ const Products = () => {
         <div className="container">
           {/* Page Header */}
           <div className="page-header">
-            <h1>Our Products</h1>
-            <p>Discover our complete collection of amazing products</p>
+            <h1>Shop Collection</h1>
+            <p>Discover our curated selection of timeless fashion pieces</p>
           </div>
 
           {/* Filters and Search */}
@@ -81,7 +81,7 @@ const Products = () => {
             <div className="search-container">
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder="Search for styles, colors, or occasions..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"
@@ -128,7 +128,7 @@ const Products = () => {
                   <option value="name">Name</option>
                   <option value="price-low">Price: Low to High</option>
                   <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Rating</option>
+                  <option value="rating">Customer Rating</option>
                 </select>
               </div>
             </div>
@@ -138,7 +138,7 @@ const Products = () => {
           <div className="results-info">
             <p>
               Showing {filteredAndSortedProducts.length} of {products.length}{" "}
-              products
+              styles
               {selectedCategory !== "All" && ` in ${selectedCategory}`}
               {searchTerm && ` matching "${searchTerm}"`}
             </p>
@@ -157,8 +157,11 @@ const Products = () => {
             </div>
           ) : (
             <div className="no-results">
-              <h3>No products found</h3>
-              <p>Try adjusting your search or filter criteria</p>
+              <h3>No styles found</h3>
+              <p>
+                Try adjusting your search or filter criteria to find more
+                options
+              </p>
               <button
                 className="btn btn-primary"
                 onClick={() => {
@@ -254,15 +257,58 @@ const Products = () => {
                     )}
                 </div>
 
+                {/* Size Selection */}
+                {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
+                  <div className="size-selection">
+                    <label>Size:</label>
+                    <div className="size-options">
+                      {selectedProduct.sizes.map((size) => (
+                        <button key={size} className="size-option">
+                          {size}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Color Selection */}
+                {selectedProduct.colors &&
+                  selectedProduct.colors.length > 0 && (
+                    <div className="color-selection">
+                      <label>Color:</label>
+                      <div className="color-options">
+                        {selectedProduct.colors.map((color) => (
+                          <button
+                            key={color}
+                            className="color-option"
+                            title={color}
+                          >
+                            {color}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                 <div className="product-actions">
                   <button
                     className="btn btn-primary btn-lg"
                     disabled={!selectedProduct.inStock}
                   >
-                    {selectedProduct.inStock ? "Add to Cart" : "Out of Stock"}
+                    {selectedProduct.inStock ? "Add to Bag" : "Out of Stock"}
                   </button>
                   <button className="btn btn-secondary btn-lg">
-                    Add to Wishlist
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                    Wishlist
                   </button>
                 </div>
 
@@ -281,9 +327,18 @@ const Products = () => {
                     </span>
                   </div>
                   <div className="info-item">
-                    <strong>SKU:</strong> PROD-
+                    <strong>Style #:</strong> SV-
                     {selectedProduct.id.toString().padStart(4, "0")}
                   </div>
+                  <div className="info-item">
+                    <strong>Care:</strong> Machine wash cold, hang dry
+                  </div>
+                </div>
+
+                <div className="size-guide-link">
+                  <a href="#size-guide" className="text-link">
+                    📏 Size Guide & Fit Information
+                  </a>
                 </div>
               </div>
             </div>

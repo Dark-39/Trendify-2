@@ -63,7 +63,8 @@
 
 /* Sections */
 .featured-section,
-.categories-section {
+.categories-section,
+.inspiration-section {
   padding: 4rem 0;
 }
 
@@ -148,6 +149,74 @@
   flex-grow: 1;
 }
 
+/* Style Inspiration Section */
+.inspiration-section {
+  background-color: var(--surface-color);
+}
+
+.inspiration-grid {
+  gap: 3rem;
+}
+
+.inspiration-card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+}
+
+.inspiration-card:hover {
+  transform: translateY(-5px);
+}
+
+.inspiration-image {
+  height: 300px;
+  overflow: hidden;
+}
+
+.inspiration-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.inspiration-card:hover .inspiration-image img {
+  transform: scale(1.05);
+}
+
+.inspiration-content {
+  padding: 2rem;
+}
+
+.inspiration-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.inspiration-content p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.style-link {
+  color: var(--primary-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.style-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
 /* Newsletter */
 .newsletter-content {
   text-align: center;
@@ -172,7 +241,7 @@
   display: flex;
   gap: 1rem;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 auto 1rem;
 }
 
 .newsletter-input {
@@ -188,6 +257,12 @@
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.newsletter-note {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  margin: 0;
 }
 
 /* Footer */
@@ -216,6 +291,7 @@
 .footer-section p {
   color: #cbd5e1;
   line-height: 1.6;
+  margin-bottom: 1.5rem;
 }
 
 .footer-section ul {
@@ -262,6 +338,7 @@
 .footer-bottom p {
   color: #9ca3af;
   margin: 0;
+  font-size: 0.875rem;
 }
 
 /* Mobile Responsive */
@@ -275,7 +352,8 @@
     font-size: 3rem;
   }
 
-  .categories-grid {
+  .categories-grid,
+  .inspiration-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -306,8 +384,14 @@
   }
 
   .featured-section,
-  .categories-section {
+  .categories-section,
+  .inspiration-section {
     padding: 3rem 0;
+  }
+
+  .inspiration-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .newsletter-form {
@@ -349,5 +433,13 @@
 
   .section-header p {
     font-size: 1rem;
+  }
+
+  .inspiration-image {
+    height: 250px;
+  }
+
+  .inspiration-content {
+    padding: 1.5rem;
   }
 }
