@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import Slideshow from "../components/Slideshow";
 import ProductCard from "../components/ProductCard";
 import { products } from "../data/products";
 import "./Home.css";
@@ -12,30 +13,8 @@ const Index = () => {
     <div className="page">
       <Header />
 
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="container">
-          <div className="hero-content">
-            <h1 className="hero-title">Elevate Your Style</h1>
-            <p className="hero-description">
-              Discover timeless fashion pieces that express your unique
-              personality. From casual chic to elegant sophistication.
-            </p>
-            <div className="hero-actions">
-              <Link to="/products" className="btn btn-primary btn-lg">
-                Shop Collection
-              </Link>
-              <button className="btn btn-secondary btn-lg">Style Guide</button>
-            </div>
-          </div>
-          <div className="hero-image">
-            <img
-              src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop"
-              alt="Fashion collection showcase"
-            />
-          </div>
-        </div>
-      </section>
+      {/* Hero Slideshow */}
+      <Slideshow />
 
       {/* New Arrivals Section */}
       {newProducts.length > 0 && (
@@ -46,20 +25,21 @@ const Index = () => {
               <p>Fresh styles just added to our collection</p>
             </div>
 
-            <div className="products-grid grid grid-cols-4">
+            <div className="products-grid-responsive">
               {newProducts.slice(0, 4).map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onClick={() => {
-                    console.log("Product clicked:", product.name);
-                  }}
-                />
+                <div key={product.id} className="product-wrapper">
+                  <ProductCard
+                    product={product}
+                    onClick={() => {
+                      console.log("Product clicked:", product.name);
+                    }}
+                  />
+                </div>
               ))}
             </div>
 
             <div className="section-footer">
-              <Link to="/products?category=New" className="btn btn-secondary">
+              <Link to="/products?gender=New" className="btn btn-secondary">
                 Shop All New
               </Link>
             </div>
@@ -75,7 +55,7 @@ const Index = () => {
             <p>Find your perfect style match</p>
           </div>
 
-          <div className="categories-grid grid grid-cols-5">
+          <div className="categories-grid-responsive">
             <div className="category-card card">
               <div className="category-image">
                 <img
@@ -86,7 +66,10 @@ const Index = () => {
               <div className="category-content">
                 <h3>New</h3>
                 <p>Latest fashion trends</p>
-                <Link to="/products?gender=New" className="btn btn-primary">
+                <Link
+                  to="/products?gender=New"
+                  className="btn btn-primary category-btn"
+                >
                   Shop New
                 </Link>
               </div>
@@ -102,7 +85,10 @@ const Index = () => {
               <div className="category-content">
                 <h3>Men's</h3>
                 <p>Sophisticated style for him</p>
-                <Link to="/products?gender=Mens" className="btn btn-primary">
+                <Link
+                  to="/products?gender=Mens"
+                  className="btn btn-primary category-btn"
+                >
                   Shop Men's
                 </Link>
               </div>
@@ -118,7 +104,10 @@ const Index = () => {
               <div className="category-content">
                 <h3>Women's</h3>
                 <p>Elegant fashion for her</p>
-                <Link to="/products?gender=Womens" className="btn btn-primary">
+                <Link
+                  to="/products?gender=Womens"
+                  className="btn btn-primary category-btn"
+                >
                   Shop Women's
                 </Link>
               </div>
@@ -136,7 +125,7 @@ const Index = () => {
                 <p>Perfect finishing touches</p>
                 <Link
                   to="/products?gender=Accessories"
-                  className="btn btn-primary"
+                  className="btn btn-primary category-btn"
                 >
                   Shop Accessories
                 </Link>
@@ -153,7 +142,10 @@ const Index = () => {
               <div className="category-content">
                 <h3>Kids</h3>
                 <p>Fun styles for little ones</p>
-                <Link to="/products?gender=Kids" className="btn btn-primary">
+                <Link
+                  to="/products?gender=Kids"
+                  className="btn btn-primary category-btn"
+                >
                   Shop Kids
                 </Link>
               </div>
@@ -170,15 +162,16 @@ const Index = () => {
             <p>Curated pieces our stylists love this season</p>
           </div>
 
-          <div className="products-grid grid grid-cols-4">
+          <div className="products-grid-responsive">
             {featuredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onClick={() => {
-                  console.log("Product clicked:", product.name);
-                }}
-              />
+              <div key={product.id} className="product-wrapper">
+                <ProductCard
+                  product={product}
+                  onClick={() => {
+                    console.log("Product clicked:", product.name);
+                  }}
+                />
+              </div>
             ))}
           </div>
 
@@ -198,7 +191,7 @@ const Index = () => {
             <p>Get inspired by our latest fashion trends and styling tips</p>
           </div>
 
-          <div className="inspiration-grid grid grid-cols-2">
+          <div className="inspiration-grid">
             <div className="inspiration-card">
               <div className="inspiration-image">
                 <img
