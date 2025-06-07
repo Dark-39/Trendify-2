@@ -6,6 +6,7 @@ import "./Home.css";
 
 const Index = () => {
   const featuredProducts = products.filter((product) => product.featured);
+  const newProducts = products.filter((product) => product.isNew);
 
   return (
     <div className="page">
@@ -36,6 +37,131 @@ const Index = () => {
         </div>
       </section>
 
+      {/* New Arrivals Section */}
+      {newProducts.length > 0 && (
+        <section className="new-arrivals-section">
+          <div className="container">
+            <div className="section-header">
+              <h2>New Arrivals</h2>
+              <p>Fresh styles just added to our collection</p>
+            </div>
+
+            <div className="products-grid grid grid-cols-4">
+              {newProducts.slice(0, 4).map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onClick={() => {
+                    console.log("Product clicked:", product.name);
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="section-footer">
+              <Link to="/products?category=New" className="btn btn-secondary">
+                Shop All New
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Shop by Category Section */}
+      <section className="categories-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>Shop by Category</h2>
+            <p>Find your perfect style match</p>
+          </div>
+
+          <div className="categories-grid grid grid-cols-5">
+            <div className="category-card card">
+              <div className="category-image">
+                <img
+                  src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=300&fit=crop"
+                  alt="New Arrivals"
+                />
+              </div>
+              <div className="category-content">
+                <h3>New</h3>
+                <p>Latest fashion trends</p>
+                <Link to="/products?gender=New" className="btn btn-primary">
+                  Shop New
+                </Link>
+              </div>
+            </div>
+
+            <div className="category-card card">
+              <div className="category-image">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop"
+                  alt="Men's Collection"
+                />
+              </div>
+              <div className="category-content">
+                <h3>Men's</h3>
+                <p>Sophisticated style for him</p>
+                <Link to="/products?gender=Mens" className="btn btn-primary">
+                  Shop Men's
+                </Link>
+              </div>
+            </div>
+
+            <div className="category-card card">
+              <div className="category-image">
+                <img
+                  src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=300&fit=crop"
+                  alt="Women's Collection"
+                />
+              </div>
+              <div className="category-content">
+                <h3>Women's</h3>
+                <p>Elegant fashion for her</p>
+                <Link to="/products?gender=Womens" className="btn btn-primary">
+                  Shop Women's
+                </Link>
+              </div>
+            </div>
+
+            <div className="category-card card">
+              <div className="category-image">
+                <img
+                  src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=400&h=300&fit=crop"
+                  alt="Accessories Collection"
+                />
+              </div>
+              <div className="category-content">
+                <h3>Accessories</h3>
+                <p>Perfect finishing touches</p>
+                <Link
+                  to="/products?gender=Accessories"
+                  className="btn btn-primary"
+                >
+                  Shop Accessories
+                </Link>
+              </div>
+            </div>
+
+            <div className="category-card card">
+              <div className="category-image">
+                <img
+                  src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=300&fit=crop"
+                  alt="Kids Collection"
+                />
+              </div>
+              <div className="category-content">
+                <h3>Kids</h3>
+                <p>Fun styles for little ones</p>
+                <Link to="/products?gender=Kids" className="btn btn-primary">
+                  Shop Kids
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Products Section */}
       <section className="featured-section">
         <div className="container">
@@ -50,7 +176,6 @@ const Index = () => {
                 key={product.id}
                 product={product}
                 onClick={() => {
-                  // Navigate to product detail or add to cart functionality
                   console.log("Product clicked:", product.name);
                 }}
               />
@@ -61,69 +186,6 @@ const Index = () => {
             <Link to="/products" className="btn btn-secondary">
               Shop All Styles
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Categories Section */}
-      <section className="categories-section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Shop by Category</h2>
-            <p>Find your perfect style match</p>
-          </div>
-
-          <div className="categories-grid grid grid-cols-3">
-            <div className="category-card card">
-              <div className="category-image">
-                <img
-                  src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=300&fit=crop"
-                  alt="Dresses Collection"
-                />
-              </div>
-              <div className="category-content">
-                <h3>Dresses</h3>
-                <p>From casual to cocktail</p>
-                <Link
-                  to="/products?category=Dresses"
-                  className="btn btn-primary"
-                >
-                  Shop Dresses
-                </Link>
-              </div>
-            </div>
-
-            <div className="category-card card">
-              <div className="category-image">
-                <img
-                  src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop"
-                  alt="Tops Collection"
-                />
-              </div>
-              <div className="category-content">
-                <h3>Tops & Blouses</h3>
-                <p>Versatile pieces for every occasion</p>
-                <Link to="/products?category=Tops" className="btn btn-primary">
-                  Shop Tops
-                </Link>
-              </div>
-            </div>
-
-            <div className="category-card card">
-              <div className="category-image">
-                <img
-                  src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop"
-                  alt="Shoes Collection"
-                />
-              </div>
-              <div className="category-content">
-                <h3>Shoes</h3>
-                <p>Step into style and comfort</p>
-                <Link to="/products?category=Shoes" className="btn btn-primary">
-                  Shop Shoes
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -232,22 +294,19 @@ const Index = () => {
               <h4>Shop</h4>
               <ul>
                 <li>
-                  <Link to="/products?category=Dresses">Dresses</Link>
+                  <Link to="/products?gender=New">New Arrivals</Link>
                 </li>
                 <li>
-                  <Link to="/products?category=Tops">Tops & Blouses</Link>
+                  <Link to="/products?gender=Womens">Women's</Link>
                 </li>
                 <li>
-                  <Link to="/products?category=Bottoms">Bottoms</Link>
+                  <Link to="/products?gender=Mens">Men's</Link>
                 </li>
                 <li>
-                  <Link to="/products?category=Outerwear">Outerwear</Link>
+                  <Link to="/products?gender=Kids">Kids</Link>
                 </li>
                 <li>
-                  <Link to="/products?category=Shoes">Shoes</Link>
-                </li>
-                <li>
-                  <Link to="/products?category=Accessories">Accessories</Link>
+                  <Link to="/products?gender=Accessories">Accessories</Link>
                 </li>
               </ul>
             </div>

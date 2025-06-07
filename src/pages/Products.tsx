@@ -3,13 +3,21 @@ import { useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
 import ImageGallery from "../components/ImageGallery";
-import { products, categories, Product } from "../data/products";
+import {
+  products,
+  categories,
+  genderCategories,
+  Product,
+} from "../data/products";
 import "./Products.css";
 
 const Products = () => {
   const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState(
     searchParams.get("category") || "All",
+  );
+  const [selectedGender, setSelectedGender] = useState(
+    searchParams.get("gender") || "All",
   );
   const [sortBy, setSortBy] = useState("name");
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,6 +31,24 @@ const Products = () => {
       filtered = filtered.filter(
         (product) => product.category === selectedCategory,
       );
+    }
+
+    // Filter by gender/special categories
+    if (selectedGender !== "All") {
+      if (selectedGender === "New") {
+        filtered = filtered.filter((product) => product.isNew);
+      } else if (selectedGender === "Accessories") {
+        filtered = filtered.filter(
+          (product) => product.category === "Accessories",
+        );
+      } else {
+        filtered = filtered.filter(
+          (product) =>
+            product.gender === selectedGender.toLowerCase() ||
+            (selectedGender === "Accessories" &&
+              product.category === "Accessories"),
+        );
+      }
     }
 
     // Filter by search term
@@ -48,13 +74,17 @@ const Products = () => {
           return b.price - a.price;
         case "rating":
           return b.rating - a.rating;
+        case "newest":
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
         default:
           return 0;
       }
     });
 
     return sorted;
-  }, [selectedCategory, sortBy, searchTerm]);
+  }, [selectedCategory, selectedGender, sortBy, searchTerm]);
 
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
@@ -101,6 +131,26 @@ const Products = () => {
             </div>
 
             <div className="filter-controls">
+              <div className="gender-filter">
+                <label htmlFor="gender">Collection:</label>
+                <select
+                  id="gender"
+                  value={selectedGender}
+                  onChange={(e) => setSelectedGender(e.target.value)}
+                  className="filter-select"
+                >
+                  {genderCategories.map((gender) => (
+                    <option key={gender} value={gender}>
+                      {gender === "Mens"
+                        ? "Men's"
+                        : gender === "Womens"
+                          ? "Women's"
+                          : gender}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="category-filter">
                 <label htmlFor="category">Category:</label>
                 <select
@@ -129,6 +179,7 @@ const Products = () => {
                   <option value="price-low">Price: Low to High</option>
                   <option value="price-high">Price: High to Low</option>
                   <option value="rating">Customer Rating</option>
+                  <option value="newest">Newest First</option>
                 </select>
               </div>
             </div>
@@ -139,7 +190,9 @@ const Products = () => {
             <p>
               Showing {filteredAndSortedProducts.length} of {products.length}{" "}
               styles
-              {selectedCategory !== "All" && ` in ${selectedCategory}`}
+              {selectedGender !== "All" &&
+                ` in ${selectedGender === "Mens" ? "Men's" : selectedGender === "Womens" ? "Women's" : selectedGender}`}
+              {selectedCategory !== "All" && ` - ${selectedCategory}`}
               {searchTerm && ` matching "${searchTerm}"`}
             </p>
           </div>
@@ -167,9 +220,10 @@ const Products = () => {
                 onClick={() => {
                   setSearchTerm("");
                   setSelectedCategory("All");
+                  setSelectedGender("All");
                 }}
               >
-                Clear Filters
+                Clear All Filters
               </button>
             </div>
           )}
@@ -207,8 +261,13 @@ const Products = () => {
               </div>
 
               <div className="product-details">
-                <div className="product-category-badge">
-                  {selectedProduct.category}
+                <div className="product-badges">
+                  <div className="product-category-badge">
+                    {selectedProduct.category}
+                  </div>
+                  {selectedProduct.isNew && (
+                    <div className="new-badge">NEW</div>
+                  )}
                 </div>
 
                 <h2 className="product-title">{selectedProduct.name}</h2>
@@ -315,6 +374,16 @@ const Products = () => {
                 <div className="product-info-list">
                   <div className="info-item">
                     <strong>Category:</strong> {selectedProduct.category}
+                  </div>
+                  <div className="info-item">
+                    <strong>Gender:</strong>{" "}
+                    {selectedProduct.gender === "mens"
+                      ? "Men's"
+                      : selectedProduct.gender === "womens"
+                        ? "Women's"
+                        : selectedProduct.gender === "kids"
+                          ? "Kids"
+                          : "Unisex"}
                   </div>
                   <div className="info-item">
                     <strong>Availability:</strong>

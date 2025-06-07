@@ -52,6 +52,22 @@
   color: white;
 }
 
+.admin-link {
+  background-color: var(--warning-color);
+  color: white !important;
+  font-weight: 600;
+}
+
+.admin-link:hover {
+  background-color: #f59e0b !important;
+  color: white !important;
+}
+
+.admin-link.active {
+  background-color: #d97706 !important;
+  color: white !important;
+}
+
 .header-actions {
   display: flex;
   align-items: center;

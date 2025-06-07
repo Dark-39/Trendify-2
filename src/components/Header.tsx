@@ -30,6 +30,14 @@ const Header = () => {
                   Shop
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/admin"
+                  className={`nav-link admin-link ${location.pathname === "/admin" ? "active" : ""}`}
+                >
+                  Admin
+                </Link>
+              </li>
             </ul>
           </nav>
 
