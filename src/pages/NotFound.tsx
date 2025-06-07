@@ -1,24 +1,68 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import Header from "../components/Header";
 
 const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname,
-    );
-  }, [location.pathname]);
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
+    <div className="page">
+      <Header />
+      <div
+        style={{
+          minHeight: "80vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "2rem",
+          textAlign: "center",
+        }}
+      >
+        <div>
+          <h1
+            style={{
+              fontSize: "4rem",
+              fontWeight: "700",
+              color: "var(--text-primary)",
+              marginBottom: "1rem",
+            }}
+          >
+            404
+          </h1>
+          <h2
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: "600",
+              color: "var(--text-primary)",
+              marginBottom: "1rem",
+            }}
+          >
+            Page Not Found
+          </h2>
+          <p
+            style={{
+              fontSize: "1.125rem",
+              color: "var(--text-secondary)",
+              marginBottom: "2rem",
+              maxWidth: "400px",
+            }}
+          >
+            Sorry, we couldn't find the page you're looking for. The page might
+            have been moved or deleted.
+          </p>
+          <div
+            style={{
+              display: "flex",
+              gap: "1rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            <Link to="/" className="btn btn-primary">
+              Go to Homepage
+            </Link>
+            <Link to="/products" className="btn btn-secondary">
+              Browse Products
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
