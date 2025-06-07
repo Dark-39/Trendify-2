@@ -1,23 +1,4 @@
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  description: string;
-  category: string;
-  gender: "mens" | "womens" | "kids" | "unisex";
-  images: string[];
-  featured: boolean;
-  inStock: boolean;
-  rating: number;
-  reviews: number;
-  sizes?: string[];
-  colors?: string[];
-  isNew?: boolean;
-  createdAt: string;
-}
-
-export const products: Product[] = [
+export const products = [
   {
     id: 1,
     name: "Classic White Button-Down Shirt",

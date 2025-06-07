@@ -2,20 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Slideshow.css";
 
-interface Slide {
-  id: number;
-  title: string;
-  subtitle: string;
-  description: string;
-  image: string;
-  cta: {
-    text: string;
-    link: string;
-  };
-  theme: "light" | "dark";
-}
-
-const slides: Slide[] = [
+const slides = [
   {
     id: 1,
     title: "New Spring Collection",
@@ -88,7 +75,7 @@ const Slideshow = () => {
     return () => clearInterval(timer);
   }, [isAutoPlaying]);
 
-  const goToSlide = (index: number) => {
+  const goToSlide = (index) => {
     setCurrentSlide(index);
     setIsAutoPlaying(false);
     setTimeout(() => setIsAutoPlaying(true), 10000);

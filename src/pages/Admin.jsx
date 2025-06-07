@@ -1,17 +1,17 @@
 import { useState } from "react";
-import Header from "../components/Header";
-import { products as initialProducts, Product } from "../data/products";
+import Header from "../components/Header.jsx";
+import { products as initialProducts } from "../data/products.js";
 import "./Admin.css";
 
 const Admin = () => {
-  const [products, setProducts] = useState<Product[]>(initialProducts);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [products, setProducts] = useState(initialProducts);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterGender, setFilterGender] = useState("All");
 
-  const [formData, setFormData] = useState<Partial<Product>>({
+  const [formData, setFormData] = useState({
     name: "",
     price: 0,
     originalPrice: 0,
@@ -38,7 +38,7 @@ const Admin = () => {
     return matchesSearch && matchesGender;
   });
 
-  const handleEdit = (product: Product) => {
+  const handleEdit = (product) => {
     setSelectedProduct(product);
     setFormData(product);
     setIsEditing(true);
@@ -70,8 +70,8 @@ const Admin = () => {
 
   const handleSave = () => {
     if (isAdding) {
-      const newProduct: Product = {
-        ...(formData as Product),
+      const newProduct = {
+        ...formData,
         id: Math.max(...products.map((p) => p.id)) + 1,
       };
       setProducts([...products, newProduct]);
@@ -79,7 +79,7 @@ const Admin = () => {
       setProducts(
         products.map((p) =>
           p.id === selectedProduct.id
-            ? { ...(formData as Product), id: selectedProduct.id }
+            ? { ...formData, id: selectedProduct.id }
             : p,
         ),
       );
@@ -89,7 +89,7 @@ const Admin = () => {
     setSelectedProduct(null);
   };
 
-  const handleDelete = (productId: number) => {
+  const handleDelete = (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       setProducts(products.filter((p) => p.id !== productId));
     }
@@ -101,17 +101,14 @@ const Admin = () => {
     setSelectedProduct(null);
   };
 
-  const handleInputChange = (field: keyof Product, value: any) => {
+  const handleInputChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  const handleArrayInputChange = (
-    field: "sizes" | "colors" | "images",
-    value: string,
-  ) => {
+  const handleArrayInputChange = (field, value) => {
     const array = value
       .split(",")
       .map((item) => item.trim())

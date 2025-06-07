@@ -1,18 +1,11 @@
-import { Product } from "../data/products";
 import "./ProductCard.css";
 
-interface ProductCardProps {
-  product: Product;
-  onClick?: () => void;
-}
-
-const ProductCard = ({ product, onClick }: ProductCardProps) => {
+const ProductCard = ({ product, onClick }) => {
   const hasDiscount =
     product.originalPrice && product.originalPrice > product.price;
   const discountPercentage = hasDiscount
     ? Math.round(
-        ((product.originalPrice! - product.price) / product.originalPrice!) *
-          100,
+        ((product.originalPrice - product.price) / product.originalPrice) * 100,
       )
     : 0;
 
@@ -60,7 +53,7 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
             <span className="current-price">${product.price.toFixed(2)}</span>
             {hasDiscount && (
               <span className="original-price">
-                ${product.originalPrice!.toFixed(2)}
+                ${product.originalPrice.toFixed(2)}
               </span>
             )}
           </div>

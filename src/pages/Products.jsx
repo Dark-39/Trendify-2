@@ -1,14 +1,9 @@
 import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import Header from "../components/Header";
-import ProductCard from "../components/ProductCard";
-import ImageGallery from "../components/ImageGallery";
-import {
-  products,
-  categories,
-  genderCategories,
-  Product,
-} from "../data/products";
+import Header from "../components/Header.jsx";
+import ProductCard from "../components/ProductCard.jsx";
+import ImageGallery from "../components/ImageGallery.jsx";
+import { products, categories, genderCategories } from "../data/products.js";
 import "./Products.css";
 
 const Products = () => {
@@ -21,7 +16,7 @@ const Products = () => {
   );
   const [sortBy, setSortBy] = useState("name");
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = products;
@@ -86,7 +81,7 @@ const Products = () => {
     return sorted;
   }, [selectedCategory, selectedGender, sortBy, searchTerm]);
 
-  const handleProductClick = (product: Product) => {
+  const handleProductClick = (product) => {
     setSelectedProduct(product);
   };
 

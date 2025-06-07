@@ -1,12 +1,7 @@
 import { useState } from "react";
 import "./ImageGallery.css";
 
-interface ImageGalleryProps {
-  images: string[];
-  productName: string;
-}
-
-const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
+const ImageGallery = ({ images, productName }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   return (

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import Slideshow from "../components/Slideshow";
-import ProductCard from "../components/ProductCard";
-import { products } from "../data/products";
+import Header from "../components/Header.jsx";
+import Slideshow from "../components/Slideshow.jsx";
+import ProductCard from "../components/ProductCard.jsx";
+import { products } from "../data/products.js";
 import "./Home.css";
 
 const Index = () => {
