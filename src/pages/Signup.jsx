@@ -417,14 +417,6 @@ const Signup = () => {
 
         {/* Right Panel - Image */}
         <div className="auth-image-panel">
-          <div className="image-overlay">
-            <div className="overlay-content">
-              <h2 className="overlay-title">Start Your Style Journey</h2>
-              <p className="overlay-subtitle">
-                Explore the latest fashion trends
-              </p>
-            </div>
-          </div>
           <img
             src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&h=1024&fit=crop"
             alt="Fashion collection"
