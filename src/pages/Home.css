@@ -272,7 +272,7 @@
 
 /* Footer */
 .footer {
-  background-color: var(--text-primary);
+  background-color: #1e293b;
   color: white;
   padding: 3rem 0 1rem;
   margin-top: auto;
@@ -345,6 +345,37 @@
   color: #9ca3af;
   margin: 0;
   font-size: 0.875rem;
+}
+
+/* Dark mode footer adjustments */
+[data-theme="dark"] .footer {
+  background-color: #0f172a;
+  border-top: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .footer-section h3,
+[data-theme="dark"] .footer-section h4 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .footer-section p {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .footer-section ul li a {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .footer-section ul li a:hover {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .footer-bottom {
+  border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .footer-bottom p {
+  color: #9ca3af;
 }
 
 /* Responsive Design */
