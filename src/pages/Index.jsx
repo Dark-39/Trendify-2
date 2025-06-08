@@ -230,33 +230,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="newsletter-section">
-        <div className="container">
-          <div className="newsletter-content">
-            <h2>Stay Stylish</h2>
-            <p>
-              Subscribe to receive exclusive style tips, new arrivals, and
-              special offers
-            </p>
-            <form className="newsletter-form">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="newsletter-input"
-                required
-              />
-              <button type="submit" className="btn btn-primary">
-                Subscribe
-              </button>
-            </form>
-            <p className="newsletter-note">
-              Join 50,000+ fashion lovers getting weekly style inspiration
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="footer">
         <div className="container">
