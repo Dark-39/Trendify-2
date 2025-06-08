@@ -6,6 +6,7 @@ const Header = () => {
   const location = useLocation();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // This would come from your auth context
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -29,6 +30,12 @@ const Header = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    // Add logout logic here
+    console.log("User logged out");
   };
 
   return (
@@ -161,20 +168,51 @@ const Header = () => {
             </button>
 
             {/* Account Button */}
-            <button className="btn btn-secondary">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              <span className="btn-text">Account</span>
-            </button>
+            {isLoggedIn ? (
+              <div className="account-dropdown">
+                <button className="btn btn-secondary account-btn">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <span className="btn-text">Account</span>
+                </button>
+                <div className="dropdown-menu">
+                  <Link to="/profile" className="dropdown-item">
+                    Profile
+                  </Link>
+                  <Link to="/orders" className="dropdown-item">
+                    Orders
+                  </Link>
+                  <button onClick={handleLogout} className="dropdown-item">
+                    Logout
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <Link to="/login" className="btn btn-secondary">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                  <polyline points="10,17 15,12 10,7" />
+                  <line x1="15" y1="12" x2="3" y2="12" />
+                </svg>
+                <span className="btn-text">Login</span>
+              </Link>
+            )}
 
             {/* Cart Button */}
             <button className="btn btn-primary cart-btn">
