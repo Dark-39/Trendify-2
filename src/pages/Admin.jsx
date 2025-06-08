@@ -1,15 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header.jsx";
 import { products as initialProducts } from "../data/products.js";
 import "./Admin.css";
 
 const Admin = () => {
+  const navigate = useNavigate();
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState(initialProducts);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterGender, setFilterGender] = useState("All");
+
+  // Check admin access on component mount
+  useEffect(() => {
+    const checkAdminAccess = () => {
+      const savedUser = localStorage.getItem("user");
+
+      if (!savedUser) {
+        // No user logged in, redirect to login
+        navigate("/login");
+        return;
+      }
+
+      try {
+        const user = JSON.parse(savedUser);
+
+        if (!user.isAdmin) {
+          // User is not admin, redirect to home
+          navigate("/");
+          return;
+        }
+
+        // User is admin, allow access
+        setIsAuthorized(true);
+      } catch (error) {
+        // Invalid user data, redirect to login
+        localStorage.removeItem("user");
+        navigate("/login");
+        return;
+      }
+
+      setIsLoading(false);
+    };
+
+    checkAdminAccess();
+  }, [navigate]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -118,6 +157,40 @@ const Admin = () => {
       [field]: array,
     }));
   };
+
+  // Show loading spinner while checking authorization
+  if (isLoading) {
+    return (
+      <div className="page">
+        <Header />
+        <main className="admin-page">
+          <div className="container">
+            <div className="admin-loading">
+              <div className="loading-spinner-large"></div>
+              <p>Checking authorization...</p>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  // If not authorized, this won't render as user will be redirected
+  if (!isAuthorized) {
+    return (
+      <div className="page">
+        <Header />
+        <main className="admin-page">
+          <div className="container">
+            <div className="access-denied">
+              <h1>Access Denied</h1>
+              <p>You don't have permission to access the admin panel.</p>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="page">
