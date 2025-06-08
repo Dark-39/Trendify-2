@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -16,24 +19,80 @@ const Signup = () => {
       ...prev,
       [name]: value,
     }));
+    // Clear error when user starts typing
+    if (error) setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match!");
+      setIsLoading(false);
       return;
     }
 
-    // Handle signup logic here
-    console.log("Signup attempt:", formData);
+    // Basic password validation
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long!");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Mock user data - in real app, this would come from your authentication API
+      const userData = {
+        id: Date.now(), // Simple ID generation
+        name: formData.name,
+        email: formData.email,
+      };
+
+      // Store user data
+      localStorage.setItem("user", JSON.stringify(userData));
+
+      // Trigger a custom event to update header
+      window.dispatchEvent(new Event("userLoggedIn"));
+
+      // Redirect to home page
+      navigate("/");
+
+      console.log("Signup successful:", userData);
+    } catch (error) {
+      setError("Signup failed. Please try again.");
+      console.error("Signup error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleGoogleSignIn = () => {
-    // Handle Google sign-in logic here
-    console.log("Google sign-in clicked");
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    try {
+      // Simulate Google OAuth
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      const userData = {
+        id: Date.now(),
+        name: "Google User",
+        email: "google.user@gmail.com",
+      };
+
+      localStorage.setItem("user", JSON.stringify(userData));
+      window.dispatchEvent(new Event("userLoggedIn"));
+      navigate("/");
+
+      console.log("Google sign-up successful");
+    } catch (error) {
+      setError("Google sign-up failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -43,6 +102,24 @@ const Signup = () => {
         <div className="auth-form-panel">
           <div className="auth-form-container">
             <h1 className="auth-title">Getting Started</h1>
+
+            {error && (
+              <div
+                className="error-message"
+                style={{
+                  background: "#fee2e2",
+                  border: "1px solid #fecaca",
+                  color: "#dc2626",
+                  padding: "0.75rem",
+                  borderRadius: "0.5rem",
+                  marginBottom: "1rem",
+                  textAlign: "center",
+                  fontSize: "0.875rem",
+                }}
+              >
+                {error}
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="auth-form">
               <div className="form-group">
@@ -59,6 +136,7 @@ const Signup = () => {
                     placeholder="Input Name"
                     className="form-input"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -77,6 +155,7 @@ const Signup = () => {
                     placeholder="Input Email"
                     className="form-input"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -95,6 +174,7 @@ const Signup = () => {
                     placeholder="Input Password"
                     className="form-input"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -113,12 +193,17 @@ const Signup = () => {
                     placeholder="Confirm Password"
                     className="form-input"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
 
-              <button type="submit" className="auth-submit-btn">
-                Sign Up
+              <button
+                type="submit"
+                className="auth-submit-btn"
+                disabled={isLoading}
+              >
+                {isLoading ? "Creating Account..." : "Sign Up"}
               </button>
             </form>
 
@@ -127,7 +212,11 @@ const Signup = () => {
               <span className="divider-text">Or</span>
             </div>
 
-            <button onClick={handleGoogleSignIn} className="google-signin-btn">
+            <button
+              onClick={handleGoogleSignIn}
+              className="google-signin-btn"
+              disabled={isLoading}
+            >
               <svg
                 width="25"
                 height="26"
@@ -152,7 +241,7 @@ const Signup = () => {
                   fill="#1976D2"
                 />
               </svg>
-              Sign in with Google
+              {isLoading ? "Signing up..." : "Sign in with Google"}
             </button>
 
             <div className="auth-footer">

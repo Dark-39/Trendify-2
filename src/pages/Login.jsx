@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -14,17 +17,66 @@ const Login = () => {
       ...prev,
       [name]: value,
     }));
+    // Clear error when user starts typing
+    if (error) setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Login attempt:", formData);
+    setIsLoading(true);
+    setError("");
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Mock user data - in real app, this would come from your authentication API
+      const userData = {
+        id: 1,
+        name: formData.name,
+        email: `${formData.name.toLowerCase().replace(" ", "")}@example.com`,
+      };
+
+      // Store user data
+      localStorage.setItem("user", JSON.stringify(userData));
+
+      // Trigger a custom event to update header
+      window.dispatchEvent(new Event("userLoggedIn"));
+
+      // Redirect to home page
+      navigate("/");
+
+      console.log("Login successful:", userData);
+    } catch (error) {
+      setError("Login failed. Please try again.");
+      console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleGoogleSignIn = () => {
-    // Handle Google sign-in logic here
-    console.log("Google sign-in clicked");
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    try {
+      // Simulate Google OAuth
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      const userData = {
+        id: 2,
+        name: "Google User",
+        email: "google.user@gmail.com",
+      };
+
+      localStorage.setItem("user", JSON.stringify(userData));
+      window.dispatchEvent(new Event("userLoggedIn"));
+      navigate("/");
+
+      console.log("Google sign-in successful");
+    } catch (error) {
+      setError("Google sign-in failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -34,6 +86,24 @@ const Login = () => {
         <div className="auth-form-panel">
           <div className="auth-form-container">
             <h1 className="auth-title">Welcome Back!</h1>
+
+            {error && (
+              <div
+                className="error-message"
+                style={{
+                  background: "#fee2e2",
+                  border: "1px solid #fecaca",
+                  color: "#dc2626",
+                  padding: "0.75rem",
+                  borderRadius: "0.5rem",
+                  marginBottom: "1rem",
+                  textAlign: "center",
+                  fontSize: "0.875rem",
+                }}
+              >
+                {error}
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="auth-form">
               <div className="form-group">
@@ -50,6 +120,7 @@ const Login = () => {
                     placeholder="Input Name"
                     className="form-input"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -68,12 +139,17 @@ const Login = () => {
                     placeholder="Input Password"
                     className="form-input"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
 
-              <button type="submit" className="auth-submit-btn">
-                Sign In
+              <button
+                type="submit"
+                className="auth-submit-btn"
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing In..." : "Sign In"}
               </button>
 
               <div className="forgot-password">
@@ -89,7 +165,11 @@ const Login = () => {
               <span className="divider-text">Or</span>
             </div>
 
-            <button onClick={handleGoogleSignIn} className="google-signin-btn">
+            <button
+              onClick={handleGoogleSignIn}
+              className="google-signin-btn"
+              disabled={isLoading}
+            >
               <svg
                 width="25"
                 height="25"
@@ -114,7 +194,7 @@ const Login = () => {
                   fill="#1976D2"
                 />
               </svg>
-              Sign in with Google
+              {isLoading ? "Signing in..." : "Sign in with Google"}
             </button>
 
             <div className="auth-footer">

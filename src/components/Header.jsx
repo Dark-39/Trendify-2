@@ -6,13 +6,21 @@ const Header = () => {
   const location = useLocation();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // This would come from your auth context
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
       setIsDarkMode(true);
       document.documentElement.setAttribute("data-theme", "dark");
+    }
+
+    // Check for logged in user
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+      setIsLoggedIn(true);
     }
   }, []);
 
@@ -34,7 +42,8 @@ const Header = () => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    // Add logout logic here
+    setUser(null);
+    localStorage.removeItem("user");
     console.log("User logged out");
   };
 
@@ -167,7 +176,7 @@ const Header = () => {
               )}
             </button>
 
-            {/* Account Button */}
+            {/* Authentication Buttons */}
             {isLoggedIn ? (
               <div className="account-dropdown">
                 <button className="btn btn-secondary account-btn">
@@ -182,7 +191,7 @@ const Header = () => {
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                     <circle cx="12" cy="7" r="4" />
                   </svg>
-                  <span className="btn-text">Account</span>
+                  <span className="btn-text">{user?.name || "Account"}</span>
                 </button>
                 <div className="dropdown-menu">
                   <Link to="/profile" className="dropdown-item">
@@ -191,27 +200,54 @@ const Header = () => {
                   <Link to="/orders" className="dropdown-item">
                     Orders
                   </Link>
+                  <Link to="/wishlist" className="dropdown-item">
+                    Wishlist
+                  </Link>
                   <button onClick={handleLogout} className="dropdown-item">
                     Logout
                   </button>
                 </div>
               </div>
             ) : (
-              <Link to="/login" className="btn btn-secondary">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
+              <div className="auth-buttons">
+                <Link
+                  to="/login"
+                  className={`btn btn-secondary auth-btn ${location.pathname === "/login" ? "active" : ""}`}
                 >
-                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                  <polyline points="10,17 15,12 10,7" />
-                  <line x1="15" y1="12" x2="3" y2="12" />
-                </svg>
-                <span className="btn-text">Login</span>
-              </Link>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                    <polyline points="10,17 15,12 10,7" />
+                    <line x1="15" y1="12" x2="3" y2="12" />
+                  </svg>
+                  <span className="btn-text">Login</span>
+                </Link>
+                <Link
+                  to="/signup"
+                  className={`btn btn-primary auth-btn ${location.pathname === "/signup" ? "active" : ""}`}
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                  <span className="btn-text">Sign Up</span>
+                </Link>
+              </div>
             )}
 
             {/* Cart Button */}
