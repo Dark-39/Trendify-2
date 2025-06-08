@@ -36,14 +36,31 @@ const Login = () => {
     setError("");
 
     try {
+      // Check for admin credentials
+      const isAdmin =
+        formData.name === "admin" && formData.password === "admin123";
+
+      // If not admin, validate if user exists (simple mock validation)
+      if (
+        !isAdmin &&
+        (formData.name.length < 2 || formData.password.length < 6)
+      ) {
+        setError("Invalid credentials. Please check your name and password.");
+        setIsLoading(false);
+        return;
+      }
+
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Mock user data - in real app, this would come from your authentication API
       const userData = {
-        id: 1,
+        id: isAdmin ? 0 : 1, // Admin gets ID 0
         name: formData.name,
-        email: `${formData.name.toLowerCase().replace(" ", "")}@example.com`,
+        email: isAdmin
+          ? "admin@trendify.com"
+          : `${formData.name.toLowerCase().replace(" ", "")}@example.com`,
+        isAdmin: isAdmin,
       };
 
       // Store user data
