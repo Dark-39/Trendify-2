@@ -235,7 +235,7 @@ const Index = () => {
         <div className="container">
           <div className="footer-content">
             <div className="footer-section">
-              <h3>StyleVogue</h3>
+              <h3>Trendify</h3>
               <p>
                 Your destination for timeless fashion and contemporary style.
                 Empowering confidence through beautiful clothing.
@@ -322,7 +322,7 @@ const Index = () => {
 
           <div className="footer-bottom">
             <p>
-              &copy; 2024 StyleVogue. All rights reserved. | Privacy Policy |
+              &copy; 2024 Trendify. All rights reserved. | Privacy Policy |
               Terms of Service
             </p>
           </div>
